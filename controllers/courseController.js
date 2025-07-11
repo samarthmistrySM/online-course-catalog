@@ -7,7 +7,7 @@ export const getCourses = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Courses fetched successfully",
-      data: courses,
+      courses,
     });
   } catch (err) {
     res.status(500).json({
@@ -26,7 +26,7 @@ export const getCourseById = async (req, res) => {
       res.status(200).json({
         success: true,
         message: "Course fetched successfully",
-        data: course,
+        course,
       });
     } else {
       res.status(404).json({
@@ -93,7 +93,7 @@ export const createCourse = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Course created successfully",
-      data: course,
+      course,
     });
   } catch (err) {
     res.status(500).json({

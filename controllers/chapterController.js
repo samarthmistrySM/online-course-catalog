@@ -8,7 +8,7 @@ export const getChaptersByCourse = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Chapters fetched successfully",
-      data: chapters,
+      chapters,
     });
   } catch (err) {
     res.status(500).json({
@@ -44,7 +44,7 @@ export const createChapter = async (req, res) => {
     res.status(201).json({
       success: true,
       message: "Chapter created successfully",
-      data: chapter,
+      chapter,
     });
   } catch (err) {
     res.status(500).json({
@@ -75,7 +75,7 @@ export const updateChapter = async (req, res) => {
     res.status(200).json({
       success: true,
       message: "Chapter updated successfully",
-      data: chapter,
+      chapter,
     });
   } catch (err) {
     res.status(500).json({

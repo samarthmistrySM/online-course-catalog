@@ -3,11 +3,11 @@ import { validationResult } from "express-validator";
 
 export const getProgress = async (req, res, next) => {
   try {
-    const data = await Progress.find({ user: req.user._id }).populate("course");
+    const progress = await Progress.find({ user: req.user._id }).populate("course");
     res.status(200).json({
       success: true,
       message: "Progress data fetched successfully",
-      data,
+      progress,
     });
   } catch (err) {
     res.status(500).json({
@@ -37,14 +37,14 @@ export const updateProgress = async (req, res, next) => {
       res.status(200).json({
         success: true,
         message: "Progress updated successfully",
-        data: record,
+        record,
       });
     } else {
       record = await Progress.create({ user: req.user._id, course, progress });
       res.status(201).json({
         success: true,
         message: "Progress created successfully",
-        data: record,
+        record,
       });
     }
   } catch (err) {
