@@ -13,7 +13,6 @@ const courseSchema = mongoose.Schema(
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
-// 🆕 Virtual: chapters
 courseSchema.virtual("chapters", {
   ref: "Chapter",
   localField: "_id",

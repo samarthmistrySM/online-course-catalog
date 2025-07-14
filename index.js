@@ -6,11 +6,17 @@ import routes from "./routes/index.js";
 import swaggerUi from "swagger-ui-express"
 import { errorHandler } from "./middlewares/errorMiddleware.js";
 import swaggerDocument from "./swagger-output.json" with {type: 'json'};
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 const app = express();
+
+app.use(cookieParser());
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: process.env.CLIENT_URL, 
+  credentials: true,
+}));
 app.use("/api-doc", swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/api/v1", routes());
 app.use(errorHandler);
