@@ -18,95 +18,95 @@ mongoose
     process.exit(1);
   });
 
-// 📝 Sample courses with detailed chapters
+// 📝 New set of courses with chapters
 const coursesData = [
   {
-    name: "React Mastery",
+    name: "Advanced TypeScript",
     description:
-      "Learn React from basics to advanced concepts with hands-on projects and real-world examples.",
+      "Master TypeScript to write safer, scalable, and maintainable code. Perfect for JavaScript developers transitioning to TypeScript.",
+    category: "Programming Languages",
+    trainer: "Samarth Mistry",
+    duration: "5 weeks",
+    syllabus: ["Types", "Generics", "Decorators", "Type Inference"],
+    image: "https://example.com/typescript-course.jpg",
+    chapters: [
+      {
+        title: "Getting Started with TypeScript",
+        description:
+          "Learn the basics of TypeScript including types, interfaces, and configuration. Set up your first TypeScript project and understand the compiler.",
+        tags: ["typescript", "basics", "setup"],
+      },
+      {
+        title: "Advanced Types and Generics",
+        description:
+          "Dive into advanced type features like union types, intersection types, generics, and conditional types. Understand how to model complex data structures.",
+        tags: ["generics", "advanced-types", "interfaces"],
+      },
+      {
+        title: "Decorators and Metadata",
+        description:
+          "Explore decorators and metadata programming in TypeScript. Learn how to enhance classes and methods using decorator functions.",
+        tags: ["decorators", "metadata", "oop"],
+      },
+    ],
+  },
+  {
+    name: "Next.js & Modern Web",
+    description:
+      "Learn Next.js and build lightning-fast, SEO-friendly, fullstack applications using React and Node.js.",
     category: "Web Development",
     trainer: "Samarth Mistry",
-    duration: "6 weeks",
-    syllabus: ["JSX", "Components", "Hooks", "Redux", "Testing"],
-    image: "https://example.com/react-course.jpg",
+    duration: "7 weeks",
+    syllabus: ["SSR", "API Routes", "Prisma", "TailwindCSS"],
+    image: "https://example.com/nextjs-course.jpg",
     chapters: [
       {
-        title: "Introduction to React",
+        title: "Next.js Fundamentals",
         description:
-          "This chapter introduces you to the world of React. You’ll learn why React is so popular, how it compares to other frameworks, and how its component-based architecture makes building complex UIs easier. We’ll also set up the development environment and create our first simple React app.",
-        tags: ["react", "introduction", "setup"],
+          "Understand why Next.js is the preferred React framework. Learn about file-based routing, pages, and static site generation.",
+        tags: ["nextjs", "ssr", "routing"],
       },
       {
-        title: "Understanding Components",
+        title: "API Routes and Database Integration",
         description:
-          "Dive deep into React components—both class and functional. This chapter explains props, state, and lifecycle methods in detail, showing how they enable dynamic and reusable UI building. You'll also explore component hierarchies and best practices for structuring React applications.",
-        tags: ["components", "props", "state"],
+          "Create API endpoints using Next.js API routes. Connect your application to databases using Prisma ORM and learn about CRUD operations.",
+        tags: ["api", "prisma", "database"],
       },
       {
-        title: "Mastering React Hooks",
+        title: "Styling with TailwindCSS",
         description:
-          "Learn how React Hooks revolutionized functional components. This chapter covers useState, useEffect, and custom hooks, with practical examples of managing side effects and sharing logic between components. We'll also discuss common pitfalls and how to avoid them.",
-        tags: ["hooks", "useState", "useEffect"],
+          "Integrate TailwindCSS for utility-first styling. Build responsive and clean UIs effortlessly using Next.js with Tailwind.",
+        tags: ["tailwindcss", "styling", "ui"],
       },
     ],
   },
   {
-    name: "Node.js Bootcamp",
+    name: "Docker for Developers",
     description:
-      "Backend development made easy with Node.js, Express, and MongoDB. Build robust APIs and scalable server-side applications.",
-    category: "Backend Development",
+      "Learn Docker to containerize your applications and simplify development, testing, and deployment workflows.",
+    category: "DevOps",
     trainer: "Samarth Mistry",
-    duration: "8 weeks",
-    syllabus: ["Express", "MongoDB", "JWT", "API Development"],
-    image: "https://example.com/node-course.jpg",
+    duration: "4 weeks",
+    syllabus: ["Containers", "Docker Compose", "Volumes", "Images"],
+    image: "https://example.com/docker-course.jpg",
     chapters: [
       {
-        title: "Node.js Fundamentals",
+        title: "Introduction to Docker",
         description:
-          "Understand the core concepts of Node.js including the event loop, non-blocking I/O, and the module system. This chapter also walks you through setting up a Node.js project, working with npm packages, and understanding the REPL environment for quick experimentation.",
-        tags: ["node", "event-loop", "npm"],
+          "Understand what Docker is, why it’s used, and how containers differ from virtual machines. Set up Docker and run your first container.",
+        tags: ["docker", "containers", "setup"],
       },
       {
-        title: "Building REST APIs with Express",
+        title: "Building and Managing Images",
         description:
-          "This chapter focuses on building robust RESTful APIs using Express. Learn about routing, middleware, request/response cycles, and error handling. You'll also implement CRUD operations and organize your application structure for scalability.",
-        tags: ["express", "api", "routing"],
+          "Learn how to write Dockerfiles, build custom images, and manage image versions effectively for your projects.",
+        tags: ["images", "dockerfile", "build"],
       },
       {
-        title: "Authentication & Authorization with JWT",
+        title: "Docker Compose & Multi-Container Apps",
         description:
-          "Secure your APIs using JSON Web Tokens (JWT). You'll learn about token creation, verification, and role-based access control. This chapter includes hands-on examples of protecting routes and managing user sessions securely.",
-        tags: ["auth", "jwt", "security"],
-      },
-    ],
-  },
-  {
-    name: "Fullstack with MERN",
-    description:
-      "Combine MongoDB, Express, React, and Node.js into fullstack applications. Learn to build and deploy real-world projects end-to-end.",
-    category: "Fullstack Development",
-    trainer: "Samarth Mistry",
-    duration: "10 weeks",
-    syllabus: ["MERN", "Authentication", "Deployment"],
-    image: "https://example.com/mern-course.jpg",
-    chapters: [
-      {
-        title: "Introduction to MERN Stack",
-        description:
-          "Get an overview of the MERN stack and how each technology fits together. This chapter covers setting up a MERN development environment and explains the roles of MongoDB, Express, React, and Node.js in building modern web apps.",
-        tags: ["mern", "overview", "setup"],
-      },
-      {
-        title: "Frontend-Backend Integration",
-        description:
-          "Learn how to connect your React frontend with your Node.js backend. This chapter covers API calls using Axios, handling responses and errors, and managing application state for smooth user experiences.",
-        tags: ["integration", "frontend", "backend"],
-      },
-      {
-        title: "Deploying Fullstack Applications",
-        description:
-          "Deploy your fullstack applications to cloud platforms like Heroku or Vercel. You'll learn about environment variables, build processes, and setting up CI/CD pipelines for professional-grade deployments.",
-        tags: ["deployment", "cloud", "ci/cd"],
+          "Discover how to orchestrate multi-container applications using Docker Compose. Set up complex environments with ease.",
+        tags: ["docker-compose", "orchestration", "multi-container"],
       },
     ],
   },
@@ -115,9 +115,9 @@ const coursesData = [
 async function seedDatabase() {
   try {
     // Clear old data
-    await Course.deleteMany();
-    await Chapter.deleteMany();
-    console.log("🗑️ Old data cleared");
+    // await Course.deleteMany();
+    // await Chapter.deleteMany();
+    // console.log("🗑️ Old data cleared");
 
     for (const courseData of coursesData) {
       // Create course

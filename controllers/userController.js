@@ -3,7 +3,7 @@ export const getUser = async (req, res) => {
   try {
     const user = await User.findById(req.user._id)
       .populate({
-        path: "enrolledCourses",
+        path: "enrolledCourses.course",
         populate: {
           path: "chapters",
         },

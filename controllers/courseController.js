@@ -46,8 +46,17 @@ export const getCourseById = async (req, res) => {
 export const enrollInCourse = async (req, res) => {
   try {
     const user = await User.findById(req.user._id);
-    if (!user.enrolledCourses.includes(req.params.id)) {
-      user.enrolledCourses.push(req.params.id);
+
+    const alreadyEnrolled = user.enrolledCourses.some(
+      (enrolled) => enrolled.course.toString() === req.params.id
+    );
+
+    if (!alreadyEnrolled) {
+      user.enrolledCourses.push({
+        course: req.params.id,
+        completed: false,
+      });
+
       await user.save();
       res.status(200).json({
         success: true,
@@ -63,6 +72,114 @@ export const enrollInCourse = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Enrollment failed",
+      error: err.message,
+    });
+  }
+};
+
+export const unenrollFromCourse = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    const beforeCount = user.enrolledCourses.length;
+
+    user.enrolledCourses = user.enrolledCourses.filter(
+      (enrolled) => enrolled.course.toString() !== req.params.id
+    );
+
+    if (user.enrolledCourses.length === beforeCount) {
+      return res.status(400).json({
+        success: false,
+        message: "User is not enrolled in this course",
+      });
+    }
+
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Unenrolled from course successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Unenrollment failed",
+      error: err.message,
+    });
+  }
+};
+
+export const completeCourse = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    const enrolledCourse = user.enrolledCourses.find(
+      (enrolled) => enrolled.course.toString() === req.params.id
+    );
+
+    if (!enrolledCourse) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found in enrolled courses",
+      });
+    }
+
+    if (enrolledCourse.completed) {
+      return res.status(400).json({
+        success: false,
+        message: "Course already marked as completed",
+      });
+    }
+
+    enrolledCourse.completed = true;
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Course marked as completed successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to mark course as completed",
+      error: err.message,
+    });
+  }
+};
+
+export const uncompleteCourse = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    const enrolledCourse = user.enrolledCourses.find(
+      (enrolled) => enrolled.course.toString() === req.params.id
+    );
+
+    if (!enrolledCourse) {
+      return res.status(404).json({
+        success: false,
+        message: "Course not found in enrolled courses",
+      });
+    }
+
+    if (!enrolledCourse.completed) {
+      return res.status(400).json({
+        success: false,
+        message: "Course is already marked as incomplete",
+      });
+    }
+
+    enrolledCourse.completed = false;
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Course marked as incomplete successfully",
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to mark course as incomplete",
       error: err.message,
     });
   }

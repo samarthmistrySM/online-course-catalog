@@ -10,7 +10,12 @@ const userSchema = mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    enrolledCourses: [{ type: mongoose.Schema.Types.ObjectId, ref: "Course" }],
+    enrolledCourses: [
+      {
+        course: { type: mongoose.Schema.Types.ObjectId, ref: "Course" },
+        completed: { type: Boolean, default: false },
+      },
+    ],
   },
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
