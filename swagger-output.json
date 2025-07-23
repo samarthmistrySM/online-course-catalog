@@ -88,6 +88,19 @@
         }
       }
     },
+    "/auth/logout": {
+      "delete": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/users/currentuser": {
       "get": {
         "tags": [
@@ -260,6 +273,27 @@
       }
     },
     "/courses/{id}/complete": {
+      "patch": {
+        "tags": [
+          "Courses"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/courses/{id}/uncomplete": {
       "patch": {
         "tags": [
           "Courses"

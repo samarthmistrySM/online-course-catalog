@@ -35,3 +35,7 @@ export const getUser = async (req, res) => {
     });
   }
 };
+
+export const logout = async (req, res) => {
+  
+}

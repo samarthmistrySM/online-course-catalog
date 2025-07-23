@@ -30,7 +30,6 @@ export const loginUser = async (req, res) => {
 
   const user = await User.findOne({ email });
   if (user && (await bcrypt.compare(password, user.password))) {
-    // Generate JWT
     const token = generateToken(user._id);
 
     res.cookie("token", token, {
@@ -46,4 +45,17 @@ export const loginUser = async (req, res) => {
   } else {
     res.status(401).json({ message: "Invalid credentials" });
   }
+};
+
+export const logoutUser = (req, res) => {
+  res.cookie("token", "", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    expires: new Date(0),
+  });
+
+  res.json({
+    message: "User logged out!",
+  });
 };
