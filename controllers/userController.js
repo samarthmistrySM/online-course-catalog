@@ -13,7 +13,8 @@ export const getUser = async (req, res) => {
         populate: {
           path: "course",
         },
-      });
+      })
+      .lean();
 
     if (!user) {
       return res.status(404).json({
@@ -36,6 +37,4 @@ export const getUser = async (req, res) => {
   }
 };
 
-export const logout = async (req, res) => {
-  
-}
+export const logout = async (req, res) => {};
