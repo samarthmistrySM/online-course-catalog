@@ -3,12 +3,26 @@ import User from "../models/User.js";
 
 export const getCourses = async (req, res) => {
   try {
-    const { category } = req.query;
+    const { category, search } = req.query;
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 6;
     const skip = (page - 1) * limit;
 
-    const filter = category && category !== "All" ? { category } : {};
+    const filter = {};
+
+    if (category && category !== "All") {
+      filter.category = category;
+    }
+
+    if (search && search.trim() !== "") {
+      const searchRegex = new RegExp(search.trim(), "i");
+      filter.$or = [
+        { name: searchRegex },
+        { trainer: searchRegex },
+        { description: searchRegex },
+        { syllabus: { $elemMatch: searchRegex } },
+      ];
+    }
 
     const totalCourses = await Course.countDocuments(filter);
 
@@ -35,6 +49,7 @@ export const getCourses = async (req, res) => {
     });
   }
 };
+
 
 export const getCourseById = async (req, res) => {
   try {
