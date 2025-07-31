@@ -3,10 +3,28 @@ import User from "../models/User.js";
 
 export const getCourses = async (req, res) => {
   try {
-    const courses = await Course.find().populate("chapters");
+    const { category } = req.query;
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 6;
+    const skip = (page - 1) * limit;
+
+    const filter = category && category !== "All" ? { category } : {};
+
+    const totalCourses = await Course.countDocuments(filter);
+
+    const courses = await Course.find(filter)
+      .skip(skip)
+      .limit(limit)
+      .populate("chapters");
+
     res.status(200).json({
       success: true,
       message: "Courses fetched successfully",
+      pagination: {
+        currentPage: page,
+        totalPages: Math.ceil(totalCourses / limit),
+        totalCourses,
+      },
       courses,
     });
   } catch (err) {
