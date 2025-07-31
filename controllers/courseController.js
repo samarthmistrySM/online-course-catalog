@@ -20,7 +20,7 @@ export const getCourses = async (req, res) => {
         { name: searchRegex },
         { trainer: searchRegex },
         { description: searchRegex },
-        { syllabus: { $elemMatch: searchRegex } },
+        { syllabus: { $elemMatch: { $regex: searchRegex } } },
       ];
     }
 
@@ -49,7 +49,6 @@ export const getCourses = async (req, res) => {
     });
   }
 };
-
 
 export const getCourseById = async (req, res) => {
   try {
